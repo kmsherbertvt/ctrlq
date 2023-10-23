@@ -14,11 +14,24 @@ OR Meitei, BT Gard, GS Barron, DP Pappas, SE Economou, E Barnes, NJ Mayhall, Gat
 [arXiv:2008.04302](https://arxiv.org/abs/2008.04302)
 
 ## Installation
-Detailed information for installation is provided in the documentation and consist of the following simple steps to build CtrlQ
+While mostly python, ctrlq delegates some of the numerically intensive work to C++.
+Thus, you will need a C++ compiler and the `cmake` tool to install.
+Detailed information for installation, particularly dependencies, is provided in the documentation but here's a quick step-by-step.
 
 1. Get the source code from github:
 
-       git clone --recursive https://github.com/oimeitei/ctrlq.git
+       git clone --recursive https://github.com/kmsherbertvt/ctrlq.git
+
+2. Install the Eigen library:
+
+   Download from https://eigen.tuxfamily.org/index.php?title=Main_Page and extract to preferred location.
+
+   (Kyle's choice: the `ctrlq` project directory itself)
+
+   Set the `EIGEN_INCLUDE` environment variable to the Eigen path, relative to `ctrlq` project directory.
+   (This is so that the `cmake` command knows where to find all the Eigen header files.)
+
+   (eg. with Kyle's choice: `export EIGEN_INCLUDE="eigen-3.4.0"`)
 
 2. Configure with cmake and compile
 
