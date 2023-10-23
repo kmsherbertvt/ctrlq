@@ -213,20 +213,34 @@ def dresser(H_, basis_):
     
     evals, evecs = scipy.linalg.eigh(H_)
 
-    evecs = evecs.T
-    res = []
-    for i in basis_:
-        tmp_ = max(evecs, key=lambda x: numpy.abs(numpy.dot(x,i)))
-        res.append(tmp_)
-        #res.append(max(evecs, key=lambda x: numpy.abs(numpy.dot(x,i))))
+    # PERMUTE EIGENVECTORS TO MAKE ROTATION U AS CLOSE TO I AS POSSIBLE
+    perm = []
+    for i in range(len(basis_)):
+        ranking = numpy.abs([           # How close is each eigenvector to the ith row of basis_?
+            numpy.vdot(basis_[:,i], evecs[:,j]) for j in range(len(basis_))
+        ])
+        ranked = numpy.argsort(ranking) # Ascending sort, so find the best overlap at the end.
 
-    for i, part in enumerate(res):
-        if max(part, key=abs) < 0:
-            res[i] = -res[i]
-        mask = numpy.abs(res[i]) < 1.e-15
-        res[i][mask] = 0.0
+        best = -1                       # USUALLY we want ranked[-1]
+        while ranked[best] in perm:     # But sometimes there are ties. We must be careful
+            best -= 1                   #   to not take the same eigenvector twice.
+        perm.append(ranked[best])
+
+    evecs = evecs[:,perm]               # Lock in with the new permutation.
+
+    # SELECT PHASE FOR EACH EIGENVECTOR SO THAT DIAGONAL OF U IS REAL AND POSITIVE
+    for i in range(len(basis_)):
+        if numpy.vdot(basis_[:,i], evecs[:,i]) < 0: # Conspicuously assume that H_ is real,
+            evecs[:,i] *= -1                        #   so that the phase is either +/-1.
+
+    # ZERO OUT ANY COMPONENTS IN U WHICH ARE JUST REALLY SMALL
+    for i in range(len(basis_)):
+        for j in range(len(evals)):
+            if abs(evecs[i,j]) < 1.e-15:
+                evecs[i,j] = 0.0
         
-    return numpy.array(res)
+    U = evecs.T.conjugate()                         # Take adjoint so U[i] = ith eigenvector
+    return U
         
 def msdressed(dbasis, h_):
     import functools
