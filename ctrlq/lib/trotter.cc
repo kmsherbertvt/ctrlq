@@ -47,7 +47,7 @@ Eigen::MatrixXcd solve_trotter(
   
   Eigen::Map<Eigen::VectorXcd> trot_(ini_vec.data(), ini_vec.size());
   int tlen = tlist.size();
-  double tau = tlist[tlen-1] / tlen;
+  double tau = tlist[tlen-1] / (tlen-1);
   std::complex<double> im(0.0,-tau);
 
   for (int t=0; t<tlen; t++){
@@ -84,7 +84,7 @@ Eigen::MatrixXcd solve_trotter2(
   Eigen::Map<Eigen::VectorXcd> trot_(ini_vec.data(), ini_vec.size());
 
   
-  double tau = tlist[tlen-1] / tlen;
+  double tau = tlist[tlen-1] / (tlen-1);
   std::complex<double> im(0.0,-tau);
 
   for (int t=0; t<tlen; t++){

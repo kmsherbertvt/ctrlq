@@ -73,7 +73,7 @@ gradc grad_ana(
   std::vector<std::vector<double> > t_grad(nqubit,
 					   std::vector<double> (tlen));
     
-  double tau = tlist[tlen-1] / tlen;
+  double tau = tlist[tlen-1] / (tlen-1);
   std::complex<double> im(0.0,-tau);
   std::complex<double> imp(0.0,tau);
     
@@ -192,7 +192,7 @@ gradc grad_ana_normalized(
   std::vector<std::vector<double> > t_grad(nqubit,
 					   std::vector<double> (tlen));
     
-  double tau = tlist[tlen-1] / tlen;
+  double tau = tlist[tlen-1] / (tlen-1);
   std::complex<double> im(0.0,-tau);
   std::complex<double> imp(0.0,tau);
     
