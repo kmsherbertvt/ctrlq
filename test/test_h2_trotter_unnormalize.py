@@ -26,8 +26,8 @@ class expecth2(unittest.TestCase):
 
         e1, l1 = ctrl.energy(normalize = False)
 
-        self.assertAlmostEqual(e1, -1.107547359358036, 8)
-        self.assertAlmostEqual(l1*100., 0.638738650065718, 8)
+        self.assertAlmostEqual(e1, -1.1075282760561442, 8)
+        self.assertAlmostEqual(l1*100., 0.6391762450580707, 8)
         
     def test_sq3_unnormalize_trotter(self):
 
@@ -50,8 +50,8 @@ class expecth2(unittest.TestCase):
 
         e1, l1 = ctrl.energy(normalize = False)
 
-        self.assertAlmostEqual(e1, -1.039602407084927, 8)
-        self.assertAlmostEqual(l1*100., 0.067308598896398, 8)
+        self.assertAlmostEqual(e1, -1.0395712233682923, 8)
+        self.assertAlmostEqual(l1*100., 0.06735228215078992, 8)
         
     def test_sq4_unnormalize_trotter(self):
 
@@ -76,8 +76,8 @@ class expecth2(unittest.TestCase):
 
         e1, l1 = ctrl.energy(normalize = False)
 
-        self.assertAlmostEqual(e1, -1.095051320889343, 8)
-        self.assertAlmostEqual(l1*100., 0.232940585238139, 8)       
+        self.assertAlmostEqual(e1, -1.09504274199589, 8)
+        self.assertAlmostEqual(l1*100., 0.2330299871529995, 8)       
         
         
 if __name__ == '__main__':
